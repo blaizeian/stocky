@@ -55,3 +55,26 @@ document.addEventListener('DOMContentLoaded', function () {
     // Initial load when page first opens
     renderTradingView(chartTheme);
 });
+
+
+function toggleTradingViewFS() {
+    const wrapper = document.getElementById('full-widget-wrapper');
+    const btn = document.getElementById('toggle-fs-btn');
+
+    wrapper.classList.toggle('is-fullscreen');
+
+    if (wrapper.classList.contains('is-fullscreen')) {
+        btn.innerHTML = "✕ Exit Fullscreen";
+        btn.style.background = "#ff4b4b";
+        document.body.style.overflow = 'hidden';
+    } else {
+        btn.innerHTML = "⛶ Fullscreen";
+        btn.style.background = "#00ff88";
+        document.body.style.overflow = 'auto';
+    }
+
+    // This tells TradingView to recalculate its size immediately
+    setTimeout(() => {
+        window.dispatchEvent(new Event('resize'));
+    }, 150);
+}

@@ -402,12 +402,13 @@ body {
     overflow: hidden;
     border: 1px solid #ffffff;
 }
-.ticker-header {
-    display: flex;
-    align-items: baseline;
-    gap: 15px;
-    margin-bottom: 10px;
+.chart-container iframe {
+    width: 100% !important;
+    height: 100% !important;
+    
+    
 }
+
 
 .current-price {
     color: #00ff88;
@@ -565,4 +566,68 @@ body {
     .top-header-container {
         flex-direction: column;
     }
+}
+
+/* Keeps the button aligned and styled */
+.widget-header {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 8px;
+}
+
+#toggle-fs-btn {
+    background: #00ff88;
+    color: #1a1a1a;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+/* The magic class that handles the fullscreen logic */
+.widget-outer-container.is-fullscreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 10000;
+    background: #0d1117;
+    padding: 15px;
+}
+
+/* Forces the chart to grow when the wrapper is fullscreen */
+.widget-outer-container.is-fullscreen .chart-container {
+    height: calc(100vh - 60px) !important;
+}
+
+/* THE FULLSCREEN STATE */
+.widget-outer-container.is-fullscreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    /* These properties handle the padding */
+    width: 100vw;
+    height: 100vh;
+    padding: 10px 40px;
+    /* 20px Top/Bottom, 40px Left/Right */
+    box-sizing: border-box;
+    /* CRITICAL: Includes padding in the 100vw calculation */
+
+    z-index: 10000;
+    background: #0d1117;
+    /* Your dark theme background */
+}
+
+/* Ensure the chart expands correctly with the new padding */
+.widget-outer-container.is-fullscreen .chart-container {
+    height: calc(100vh - 20px) !important;
+    width: 100% !important;
+    border-radius: 4px;
+    /* Gives the chart box nice rounded corners in fullscreen */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    /* Adds depth */
 }
