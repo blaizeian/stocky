@@ -1,0 +1,467 @@
+html {
+    scroll-behavior: smooth;
+}
+
+
+
+:root {
+    --bg-color: #05070a;
+    --card-bg: rgba(255, 255, 255, 0.05);
+    --accent-green: #00ffa3;
+    --accent-red: #ff4b2b;
+    --text-main: #ffffff;
+    --glass-border: rgba(255, 255, 255, 0.1);
+}
+
+body {
+    margin: 0;
+    background-color: var(--bg-color);
+    background-image: radial-gradient(circle at top right, #1a1f35, #05070a);
+    color: var(--text-main);
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 20px;
+}
+
+.dashboard {
+    width: 95%;
+    max-width: 1200px;
+    display: grid;
+    grid-template-columns: 1fr 2.5fr;
+    gap: 30px;
+}
+.btn-theme {
+    padding: 6px 12px;
+    background: #333;
+    color: #ffffff;
+    border: 1px solid #444;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    margin-bottom: 10px;
+    transition: background 0.2s;
+}
+
+.btn-theme:hover {
+    background: #444;
+}
+.card {
+    background: var(--card-bg);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 35px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    margin-bottom: 20px;
+}
+
+/* Sidebar Elements */
+.search-bar {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid var(--glass-border);
+    padding: 12px;
+    border-radius: 10px;
+    color: white;
+    width: 100%;
+    box-sizing: border-box;
+    margin: 15px 0;
+}
+
+.btn-trade {
+    background: var(--accent-green);
+    color: #000;
+    border: none;
+    padding: 12px;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    width: 100%;
+}
+
+/* Main Content Elements */
+.price-text {
+    font-size: 4rem;
+    font-weight: 600;
+    color: var(--accent-green);
+    text-shadow: 0 0 20px rgba(0, 255, 163, 0.2);
+    margin: 20px 0;
+}
+
+.status-up { color: var(--accent-green); font-weight: bold; }
+
+.positions-table {
+    width: 100%;
+    margin-top: 15px;
+    border-collapse: collapse;
+}
+
+.positions-table th { text-align: left; color: #777; font-size: 0.8rem; }
+.positions-table td { padding: 18px 0; border-top: 1px solid var(--glass-border); }
+
+.sentiment-bar {
+    width: 100%;
+    height: 12px;
+    background: #333;
+    border-radius: 6px;
+    overflow: hidden;
+    margin: 10px 0;
+}
+
+.sentiment-fill {
+    height: 100%;
+    width: 0%;
+    /* JS will change this */
+    background: #00ff88;
+    box-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+    transition: width 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.signal-label {
+    font-weight: bold;
+    letter-spacing: 1px;
+    font-size: 0.9rem;
+}
+
+.news-item {
+    margin-bottom: 25px; /* Add this line */
+    line-height: 1.5;    /* Add this to give text more height */
+}
+.sidebar, .main-content {
+    display: flex;
+    flex-direction: column;
+    gap: 30px; /* This creates a clear 30px 'moat' between cards */
+}
+/* Indicators Grid - 3 small cards in one row */
+.indicators-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.indicator-card {
+    text-align: center;
+    padding: 20px !important;
+}
+
+.indicator-value {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 5px 0;
+}
+
+.indicator-status {
+    font-size: 0.7rem;
+    letter-spacing: 1px;
+    color: #888;
+}
+
+.indicator-status.up {
+    color: var(--accent-green);
+}
+
+/* Risk Calculator Grid */
+.risk-grid {
+    display:flex;
+    flex-direction: column;
+    gap: 15px;
+    
+}
+    
+.risk-grid label {
+    display: block;
+    font-size: 0.8rem;
+    color: #888;
+    margin-bottom: 10px;
+}
+.risk-input-group .search-bar {
+    width: 100%;
+    box-sizing: border-box;
+    /* Prevents the input from stretching too wide */
+}
+
+/* Optional: Center the result text at the bottom */
+.risk-result {
+    text-align: center;
+    margin-top: 10px;
+}
+
+/* Mobile fix for new sections */
+@media (max-width: 768px) {
+    .indicators-container {
+        grid-template-columns: 1fr;
+    }
+    .risk-grid {
+        grid-template-columns: 1fr;
+    }
+    .risk-result {
+        border-left: none;
+        border-top: 1px solid var(--glass-border);
+        padding-left: 0;
+        padding-top: 20px;
+    }
+}
+.market-clock {
+    margin-top: 25px;
+    background: rgba(0, 255, 163, 0.05); /* Very faint green tint */
+    padding: 15px 20px;
+    border-radius: 15px;
+    border: 1px solid rgba(0, 255, 163, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.status-indicator {
+    position: relative;
+    width: 12px;
+    height: 12px;
+}
+
+/* The solid green dot */
+.status-dot {
+    width: 12px;
+    height: 12px;
+    background-color: var(--accent-green);
+    border-radius: 50%;
+    position: absolute;
+    z-index: 2;
+    box-shadow: 0 0 10px var(--accent-green);
+}
+
+/* The animated ripple effect */
+.status-pulse {
+    width: 12px;
+    height: 12px;
+    background-color: var(--accent-green);
+    border-radius: 50%;
+    position: absolute;
+    z-index: 1;
+    opacity: 0.6;
+    animation: pulse-ring 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+}
+
+@keyframes pulse-ring {
+    0% { transform: scale(1); opacity: 0.6; }
+    100% { transform: scale(3); opacity: 0; }
+}
+
+.status-text small {
+    color: #888;
+    display: block;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+/* News Header Container */
+.news-header-container {
+    margin-bottom: 25px;
+}
+
+.news-title-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+}
+
+.news-main-title {
+    margin: 0 !important; /* Removes default heading margins */
+    color: var(--text-main);
+    font-size: 1.1rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
+
+/* The "Live" Badge */
+.live-badge {
+    background: rgba(255, 75, 43, 0.1); /* Subtle red tint */
+    color: var(--accent-red);
+    border: 1px solid var(--accent-red);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    animation: news-glow 2s infinite;
+}
+
+/* Decorative Line under the header */
+.news-line {
+    height: 2px;
+    width: 50px;
+    background: linear-gradient(90deg, var(--accent-red), transparent);
+    border-radius: 2px;
+}
+
+@keyframes news-glow {
+    0% { box-shadow: 0 0 0px var(--accent-red); }
+    50% { box-shadow: 0 0 8px var(--accent-red); }
+    100% { box-shadow: 0 0 0px var(--accent-red); }
+}
+/* --- MOBILE RESPONSIVE SETTINGS --- */
+/* --- MOBILE RESPONSIVE SETTINGS --- */
+
+/* This triggers if the screen is 768px wide or smaller (Tablets/Phones) */
+@media (max-width: 768px) {
+    
+    .dashboard {
+        /* Change from 2 columns to 1 column */
+        grid-template-columns: 1fr; 
+        gap: 20px;
+        width: 100%;
+        padding: 10px;
+    }
+
+    .price-text {
+        font-size: 3rem; /* Shrink the text so it doesn't break the layout */
+    }
+
+    .card {
+        padding: 20px; /* Less padding to save space on small screens */
+    }
+
+    /* Move the sidebar to the top so the search bar is the first thing they see */
+    .sidebar {
+        order: -1; 
+    }
+}
+
+.risk-sidebar-card {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 15px;
+    margin-top: 30px;
+    /* Separates it from the nav links */
+    border-top: 1px solid var(--neon-blue);
+}
+
+.risk-sidebar-card h3 {
+    font-size: 0.9rem;
+    color: var(--neon-blue);
+    margin-bottom: 15px;
+}
+
+.risk-sidebar-input {
+    margin-bottom: 12px;
+}
+
+.risk-sidebar-input label {
+    display: block;
+    font-size: 0.7rem;
+    margin-bottom: 5px;
+    color: #888;
+}
+
+.risk-sidebar-input input {
+    width: 100%;
+    background: #0a0a0a;
+    border: 1px solid #333;
+    color: white;
+    padding: 8px;
+    border-radius: 4px;
+}
+
+.sidebar-price {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #ff4d4d;
+    /* Red for "Risk" */
+    margin: 5px 0;
+}
+
+.btn-sidebar {
+    width: 100%;
+    background: var(--neon-blue);
+    border: none;
+    color: black;
+    padding: 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 0.8rem;
+}
+.chart-container {
+    width: 100%;
+    /* 1. Set a hard height so it doesn't collapse */
+    height: 700px;
+
+    /* 2. Or use 'vh' to make it 80% of the user's screen height */
+    height: 80vh;
+    background:#ffffff;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #ffffff;
+}
+.ticker-header {
+    display: flex;
+    align-items: baseline;
+    gap: 15px;
+    margin-bottom: 10px;
+}
+
+.current-price {
+    color: #00ff88;
+    font-size: 1.2rem;
+}
+/* Remove the background-color line from here! */
+.chart-container {
+    border: 1px solid #d1d4dc;
+    min-height: 500px;
+}
+/* If you have a main-content background color, it might be bleeding in */
+/* This is the ID of the div holding your chart */
+#tradingview_widget {
+    width: 100%;
+    height: 80vh !important;
+    /* Forces the chart to be 80% of the window height */
+    min-height: 500px;
+    /* Ensures it never gets too small on tiny screens */
+    margin-top: 20px;
+    
+    border-radius: 8px;
+}
+
+/* Ensure the main section doesn't restrict the height */
+.main-content {
+    height: auto;
+    min-height: 100vh;
+    display: block;
+    /* Makes sure it doesn't try to flex-squash the chart */
+}
+.risk-grid {
+    position: -webkit-sticky;
+    /* For Safari */
+    position: sticky;
+    top: 20px;
+    /* Keeps it 20px from the top of the screen when scrolling */
+}
+
+/* Color states for the Hero Card */
+.status-up {
+    color: #00ff88 !important;
+    /* Neon Green */
+    font-weight: bold;
+}
+
+.status-down {
+    color: #ff4444 !important;
+    /* Vibrant Red */
+    font-weight: bold;
+}
+
+/* Optional: Smooth transition for when numbers change */
+#live-price,
+#live-change {
+    transition: color 0.3s ease, transform 0.2s ease;
+}
+
+/* Optional: Make the price look like a terminal readout */
+.price-text {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 2.5rem;
+    letter-spacing: -1px;
+}

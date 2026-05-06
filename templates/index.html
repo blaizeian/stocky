@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quantum Trade Dashboard</title>
+    <!-- Connecting the CSS file -->
+   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="dashboard">
+    <!-- Left Column: Sidebar -->
+    <div class="sidebar">
+        <div class="card">
+            <h3>Market Watch</h3>
+           
+        <input type="text" id="ticker-search-input" name="ticker" class="search-bar" placeholder="Enter Ticker...">
+        
+        <!-- Changed type to "button" and added id="search-button" -->
+        <button type="button" id="search-button" class="btn-trade">Update View</button>
+
+            
+        </div>
+
+        <div class="card news-card">
+            <div class="news-header-container">
+    <div class="news-title-group">
+        <h3 class="news-main-title">Market News</h3>
+        <span class="live-badge">Live</span>
+    </div>
+    <div class="news-line"></div>
+      </div>
+            
+            <div class="news-item">
+                <small>Live</small>
+                <p>Market volatility increasing ahead of earnings...</p>
+            </div>
+            <div class="news-item">
+                <small>1h ago</small>
+                <p>Tech sector shows strong resistance levels.</p>
+            </div>
+        </div>
+        <!-- Section: Market Indices -->
+<div class="card indices-card">
+    <h3>Global Indices</h3>
+    <div class="index-item">
+        <span>S&P 500</span>
+        <span class="index-val up">5,123.40</span>
+    </div>
+    <div class="index-item">
+        <span>Nasdaq</span>
+        <span class="index-val up">16,274.90</span>
+    </div>
+    <div class="index-item">
+        <span>Gold</span>
+        <span class="index-val down">$2,341.20</span>
+    </div>
+    
+    <div class="market-clock">
+       <div class="status-indicator">
+         <div class="status-dot"></div>
+         <div class="status-pulse"></div>
+         </div>
+       <div class="status-text">
+        <small>System Status</small>
+        <strong style="display: block; color: var(--accent-green);">MARKET OPEN</strong>
+         </div>
+       </div>
+     </div>
+  
+        <div class="risk-grid">
+            <div class="risk-input-group">
+                <label>Account Balance</label>
+                <!-- Added id="balance" -->
+                <input type="number" id="balance" class="search-bar" value="{{ balance if balance else 1000 }}">
+            </div>
+            <div class="risk-input-group">
+                <label>Risk %</label>
+                <!-- Added id="risk_percent" -->
+                <input type="number" id="risk_percent" class="search-bar" value="{{ risk_percent if risk_percent else 1 }}">
+            </div>
+            <div class="risk-result">
+                <small>Suggested Max Loss:</small>
+                <!-- Added id="max_loss_display" to the price div -->
+                <div id="max_loss_display" class="price-text" style="font-size: 2rem; margin: 0;">${{ max_loss if max_loss else
+                    '0.00' }}</div>
+        
+                <!-- Changed type to "button" to stop the reload -->
+                <button type="button" onclick="calculateRisk()" class="btn-trade" style="margin-top: 15px; width: 100%;">
+                    Calculate Risk
+                </button>
+            </div>
+        </div>
+
+
+
+     </div>
+
+    <!-- Right Column: Main Content -->
+    <div class="main-content">
+        <div class="card hero-card">
+            <!-- The Ticker Name -->
+            <span class="ticker-label" id="current-asset">{{ ticker_symbol if ticker_symbol else 'AAPL' }}</span>
+        
+            <!-- The Live Price -->
+            <div class="price-text" id="live-price">$182.41</div>
+        
+            <!-- The Status/Percent Change -->
+            <div id="live-change" class="status-up">▲ 1.34% Today</div>
+        </div>
+
+        
+
+
+        <div class="main-content">
+            <!-- Header with Ticker Info -->
+            <div class="ticker-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                <h1 id="current-asset">{{ ticker_symbol }}</h1>
+          
+
+            <button id="chart-theme-toggle" class="btn-theme"
+                style="margin-top: 10px; width: 20%; background: #d3d4dd; font-size: 0.8rem;">
+                🌓 Light/Dark theme
+            </button>
+            </div>
+        
+            <!-- NEW: The Chart Frame -->
+            <div class="chart-container"
+                style="height: 600px; width: 100%; background: #1a1a1a; border-radius: 8px; overflow: hidden;">
+                <!-- TradingView Widget BEGIN -->
+                <div id="tradingview_widget"></div>
+                <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+                <script type="text/javascript">
+                    new TradingView.widget({
+                        "autosize": true,
+                        "symbol": "{{ ticker_symbol if ticker_symbol else 'NASDAQ:AAPL' }}",
+                        "interval": "D",
+                        "timezone": "Etc/UTC",
+                        "theme": "light",
+                        "style": "1",
+                        "locale": "en",
+                        "toolbar_bg": "#ffffff",
+                        "enable_publishing": false,
+                        "allow_symbol_change": true,
+                        "container_id": "tradingview_widget"
+                    });
+                </script>
+                <!-- TradingView Widget END -->
+            </div>
+        </div>
+        <!-- Section 6: Technical Indicators Grid -->
+        <div class="card signal-card">
+            <h3>Quantum Signal</h3>
+            <div class="sentiment-bar">
+                <!-- Add the ID here for the bar width -->
+                <div id="sentiment-fill" class="sentiment-fill"></div>
+            </div>
+            <!-- Add the ID here for the text (e.g., STRONG BUY) -->
+            <p id="signal-label" class="signal-label">ANALYZING...</p>
+        </div>
+       
+        <div class="card table-card">
+            <h3>Your Open Positions</h3>
+            <table class="positions-table">
+                <thead>
+                    <tr>
+                        <th>Asset</th>
+                        <th>Qty</th>
+                        <th>Avg Price</th>
+                        <th>Profit/Loss</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>BTC</td>
+                        <td>0.5</td>
+                        <td>$45,000</td>
+                        <td class="status-up">+$4,200</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+  <div class="indicators-container">
+    
+    <div class="card indicator-card">
+        <small>RSI (14)</small>
+        <div class="indicator-value">58.2</div>
+        <div class="indicator-status">NEUTRAL</div>
+    </div>
+    <div class="card indicator-card">
+        <small>MA (50)</small>
+        <div class="indicator-value">$175.20</div>
+        <div class="indicator-status up">BULLISH</div>
+    </div>
+    <div class="card indicator-card">
+        <small>Volatility</small>
+        <div class="indicator-value">1.2%</div>
+        <div class="indicator-status">LOW</div>
+    </div>
+ </div>
+
+ <!-- Section 7: Risk & Position Sizer -->
+ 
+        
+    </div>
+</div>
+<!-- 1. The Global Variables -->
+<script>
+    var activeTicker = "{{ ticker_symbol if ticker_symbol else 'AAPL' }}";
+    var chartTheme = "dark";
+</script>
+
+<!-- 2. Link to script.js -->
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+
+<!-- 3. Link to ticker.js -->
+<script src="{{ url_for('static', filename='ticker.js') }}"></script>
+<script src="{{ url_for('static', filename='quantumSignal.js') }}"></script> <!-- Load this first -->
+<script src="{{ url_for('static', filename='marketData.js') }}"></script>
+</body>
+</html>
