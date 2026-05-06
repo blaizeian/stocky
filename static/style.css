@@ -471,3 +471,39 @@ body {
     font-size: 2.5rem;
     letter-spacing: -1px;
 }
+
+/* This targets the container holding your sidebar and main content */
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    /* Stacks everything vertically by default */
+}
+
+.sidebar {
+    order: 2;
+    /* Moves sidebar down */
+}
+
+.main-content {
+    order: 1;
+    /* Moves your search/stats to the top */
+}
+
+/* On Desktop, we flip it back to a row */
+@media (min-width: 768px) {
+    .wrapper {
+        flex-direction: row;
+    }
+
+    .sidebar {
+        order: 1;
+        /* Sidebar back to the left */
+        width: 250px;
+    }
+
+    .main-content {
+        order: 2;
+        /* Content to the right */
+        flex: 1;
+    }
+}
