@@ -507,3 +507,62 @@ body {
         flex: 1;
     }
 }
+/* The Main Container */
+.top-header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    /* Makes both boxes the same height */
+    gap: 20px;
+    /* Space between the two boxes */
+    width: 100%;
+    margin-bottom: 25px;
+}
+
+/* The Box Styling */
+.header-card {
+    flex: 1;
+    /* Forces equal width for both boxes */
+    background: #1a1f2c;
+    /* Adjust this to match your dark theme */
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid #2d3343;
+    display: flex;
+    flex-direction: row;
+    /* Keeps content inside the box horizontal */
+    align-items: center;
+    gap: 15px;
+}
+
+/* Specific adjustment for the Search Box contents */
+.search-section {
+    display: flex;
+    flex-direction: column;
+    /* Stacks 'Market Watch' title above the input */
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.search-controls {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+}
+
+/* Make the Search Bar look integrated */
+#ticker-search-input {
+    flex-grow: 1;
+    background: #0d1117;
+    border: 1px solid #30363d;
+    color: white;
+    padding: 10px;
+    border-radius: 6px;
+}
+
+/* Mobile Responsive */
+@media (max-width: 800px) {
+    .top-header-container {
+        flex-direction: column;
+    }
+}
