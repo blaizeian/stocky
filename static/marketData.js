@@ -47,3 +47,13 @@ async function fetchLiveMarketData(symbol) {
         console.error("Market Data Error:", error);
     }
 }
+
+// This runs automatically as soon as the page finishes loading
+window.onload = () => {
+    // Set a default value in the input box
+    const tickerInput = document.getElementById('tickerInput');
+    if (tickerInput) {
+        tickerInput.value = 'AAPL'; // You can change this to any stock
+        getStockData(); // This triggers the search automatically
+    }
+};
