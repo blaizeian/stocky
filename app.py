@@ -93,5 +93,11 @@ def get_stock_data(ticker):
 
 
 # --- Existing boot-up code ---
-if __name__ == '__main__':
-    app.run(debug=True)
+# ... all your routes and logic above ...
+
+if __name__ == "__main__":
+    import os
+    # This line is the "magic" that finds the live server's port
+    port = int(os.environ.get("PORT", 5000))
+    # host='0.0.0.0' tells the server to listen to all incoming public requests
+    app.run(host='0.0.0.0', port=port)

@@ -124,6 +124,12 @@ body {
     letter-spacing: 1px;
     font-size: 0.9rem;
 }
+.quantum-bar-fill {
+    width: 0%;
+    /* Start at zero */
+    transition: width 2.5s ease-in-out;
+    /* This makes it "slide" on load */
+}
 
 .news-item {
     margin-bottom: 25px; /* Add this line */
