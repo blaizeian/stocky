@@ -524,7 +524,7 @@ body {
 .header-card {
     flex: 1;
     /* Forces equal width for both boxes */
-    background: #030346;
+    background: rgba(11, 59, 173, 0.05);
     /* Adjust this to match your dark theme */
     padding: 20px;
     border-radius: 12px;
