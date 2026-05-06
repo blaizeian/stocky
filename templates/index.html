@@ -13,17 +13,7 @@
 <div class="dashboard">
     <!-- Left Column: Sidebar -->
     <div class="sidebar">
-        <div class="card">
-            <h3>Market Watch</h3>
-           
-        <input type="text" id="ticker-search-input" name="ticker" class="search-bar" placeholder="Enter Ticker...">
-        
-        <!-- Changed type to "button" and added id="search-button" -->
-        <button type="button" id="search-button" class="btn-trade">Update View</button>
-
-            
-        </div>
-
+       
         <div class="card news-card">
             <div class="news-header-container">
     <div class="news-title-group">
@@ -100,6 +90,8 @@
 
     <!-- Right Column: Main Content -->
     <div class="main-content">
+
+      <div>
         <div class="card hero-card">
             <!-- The Ticker Name -->
             <span class="ticker-label" id="current-asset">{{ ticker_symbol if ticker_symbol else 'AAPL' }}</span>
@@ -111,9 +103,19 @@
             <div id="live-change" class="status-up">▲ 1.34% Today</div>
         </div>
 
+         <div class="main-content">
+            <h3>Market Watch</h3>
+           
+        <input type="text" id="ticker-search-input" name="ticker" class="search-bar" placeholder="Enter Ticker...">
         
+        <!-- Changed type to "button" and added id="search-button" -->
+        <button type="button" id="search-button" class="btn-trade">Update View</button>
+
+            
+        </div>
 
 
+        </div>
         <div class="main-content">
             <!-- Header with Ticker Info -->
             <div class="ticker-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
