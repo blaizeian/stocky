@@ -5,12 +5,12 @@ html {
 
 
 :root {
-    --bg-color: #05070a;
-    --card-bg: rgba(255, 255, 255, 0.05);
+    --bg-color: rgba(11, 59, 173, 0.05);
+    --card-bg: rgba(11, 59, 173, 0.05);
     --accent-green: #00ffa3;
     --accent-red: #ff4b2b;
     --text-main: #ffffff;
-    --glass-border: rgba(255, 255, 255, 0.1);
+    --glass-border: rgba(12, 25, 198, 0.1);
 }
 
 body {
@@ -524,7 +524,7 @@ body {
 .header-card {
     flex: 1;
     /* Forces equal width for both boxes */
-    background: #1a1f2c;
+    background: #030346;
     /* Adjust this to match your dark theme */
     padding: 20px;
     border-radius: 12px;
@@ -594,7 +594,7 @@ body {
     width: 100vw;
     height: 100vh;
     z-index: 10000;
-    background: #0d1117;
+    background: #02409c;
     padding: 15px;
 }
 
